@@ -1,0 +1,74 @@
+.codemirror {
+  min-height: calc(100vh -20px);
+  font-size: 20px;
+  line-height: 1.6;
+  padding-top: 20px;
+}
+.compile-window {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-height: 40%;
+  background-color: #f8f9fa;
+  box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  z-index: 10;
+  overflow-y: auto;
+}
+
+.slide-up {
+  transform: translateY(0);
+}
+
+.slide-down {
+  transform: translateY(100%);
+}
+
+.output-box {
+  height: 150px;
+  background-color: #e9ecef;
+  padding: 10px;
+  overflow-y: auto;
+  border: 1px solid #ced4da;
+}
+.neon-glow {
+  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+  transition: box-shadow 0.3s ease;
+}
+.neon-glow:hover {
+  box-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff;
+}
+.neon-btn {
+  box-shadow: 0 0 6px rgba(0, 255, 255, 0.7);
+  transition: 0.3s ease;
+}
+.neon-text {
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+}
+.neon-btn:hover {
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.9), 0 0 20px rgba(0, 255, 255, 0.6);
+}
+
+.neon-input:focus {
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+  border-color: #00ffff;
+}
+
+.glow-pulse {
+  animation: pulse-glow 1.5s infinite;
+  box-shadow: 0 0 8px #ff4b5c, 0 0 15px #ff4b5c;
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 5px #ff4b5c;
+  }
+  50% {
+    box-shadow: 0 0 15px #ff4b5c;
+  }
+  100% {
+    box-shadow: 0 0 5px #ff4b5c;
+  }
+}
+
