@@ -8,6 +8,7 @@ import DrawingBoard from './components/DrawingBoard';
 import ChatVoicePage from './components/ChatVoicePage';
 import FileSharePage from './components/FileSharePage';
 import VideoSharePage from './components/VideoSharePage';
+import KanbanBoard from './components/KanbanBoard';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
      <Route path="/chatvoice/:roomId" element={<ChatVoicePage />} />
       <Route path="/fileshare/:roomId" element={<FileSharePage/>} />
       <Route path="/videoshare/:roomId" element={<VideoSharePage/>} />
+      <Route path="/kanban/:roomId" element={<KanbanBoard/>} />  
     </Routes>
     </>
   );

@@ -1,0 +1,15 @@
+.activity-log.light {
+  background-color: #f8f9fa;
+  color: #212529;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+}
+
+.activity-log.dark {
+  background-color: #2b2b2b;
+  color: #f1f1f1;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+}

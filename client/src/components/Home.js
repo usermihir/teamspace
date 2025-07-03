@@ -29,6 +29,7 @@ function Home() {
     else if (collabType === "chatvoice") route = `/chatvoice/${roomId}`;
     else if (collabType === "fileshare") route = `/fileshare/${roomId}`;
     else if (collabType === "videoshare") route = `/videoshare/${roomId}`;
+    else if (collabType === "kanban") route = `/kanban/${roomId}`;
 
     navigate(route, { state: { username } });
     toast.success("Joined Room!");
@@ -56,7 +57,7 @@ function Home() {
           border: "1px solid rgba(255,255,255,0.2)",
         }}
       >
-        {/* Optional circuit background overlay */}
+        {/* Optional background */}
         <div
           className="position-absolute top-0 start-0 w-100 h-100"
           style={{
@@ -103,7 +104,7 @@ function Home() {
           <div className="mb-3">
             <label className="form-label text-light">Select Collaboration Type</label>
             <div className="d-flex flex-wrap gap-2">
-              {["code", "drawing", "chatvoice", "fileshare", "videoshare"].map((type) => (
+              {["code", "drawing", "chatvoice", "fileshare", "videoshare", "kanban"].map((type) => (
                 <button
                   key={type}
                   className={`btn btn-sm ${

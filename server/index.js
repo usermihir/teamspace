@@ -75,10 +75,54 @@ const getAllConnectedClients = (roomId) => {
   }));
 };
 
+
 const videoRooms = {}; // roomId -> [socketId]
+const kanbanRooms = {}; // roomId -> { todo: [], inprogress: [], done: [] }
+
 
 io.on("connection", (socket) => {
-  console.log("⚡ New client connected:", socket.id);
+ socket.on("join-kanban-room", ({ roomId, username }) => {
+    socket.join(roomId);
+    userSocketMap[socket.id] = username;
+
+    if (!kanbanRooms[roomId]) {
+      kanbanRooms[roomId] = { todo: [], inprogress: [], done: [] };
+    }
+    io.to(socket.id).emit("board-data", { tasks: kanbanRooms[roomId] });
+  });
+
+  socket.on("add-task", ({ roomId, column, task }) => {
+    if (!kanbanRooms[roomId]) return;
+    kanbanRooms[roomId][column].push(task);
+    io.to(roomId).emit("task-added", { column, task });
+  });
+
+  socket.on("edit-task", ({ roomId, column, updatedTask }) => {
+    if (!kanbanRooms[roomId]) return;
+    kanbanRooms[roomId][column] = kanbanRooms[roomId][column].map((t) =>
+      t.id === updatedTask.id ? updatedTask : t
+    );
+    io.to(roomId).emit("task-edited", { column, task: updatedTask });
+  });
+
+  socket.on("delete-task", ({ roomId, column, taskId }) => {
+  if (!kanbanRooms[roomId]) return;
+  if (!kanbanRooms[roomId][column]) return;
+
+  kanbanRooms[roomId][column] = kanbanRooms[roomId][column].filter((t) => t.id !== taskId);
+  io.to(roomId).emit("task-deleted", { column, taskId });
+});
+
+
+  socket.on("move-task", ({ roomId, from, to, id }) => {
+  if (!kanbanRooms[roomId]) return;
+  const task = kanbanRooms[roomId][from].find((t) => t.id === id);
+  if (!task) return;
+  kanbanRooms[roomId][from] = kanbanRooms[roomId][from].filter((t) => t.id !== id);
+  kanbanRooms[roomId][to].push(task);
+  io.to(roomId).emit("task-moved", { id, from, to });
+});
+
 
   socket.on(ACTIONS.JOIN, ({ roomId, username }) => {
     userSocketMap[socket.id] = username;
